@@ -1,0 +1,14 @@
+Vagrant.configure(2) do |config|
+
+  config.ssh.insert_key = false
+  
+  config.vm.define "strbroweb1" do |strbroweb1|
+    strbroweb1.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |strbroweb1|
+      strbroweb1.name = "str-web-01"
+    end
+    strbroweb1.vm.network "forwarded_port", guest: 80, host: 8080
+    strbroweb1.vm.network "forwarded_port", guest: 22, host: 2203, id: "ssh"
+    strbroweb1.vm.network "private_network", ip: "172.16.0.5"
+  end
+end

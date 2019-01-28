@@ -1,0 +1,47 @@
+Vagrant.configure(2) do |config|
+
+  config.ssh.insert_key = false
+
+  config.vm.define "tergolweb1" do |tergolweb1|
+    tergolweb1.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |tergolweb1|
+      tergolweb1.name = "ter-web-01"
+    end
+    tergolweb1.vm.network "forwarded_port", guest: 80, host: 8090
+    tergolweb1.vm.network "forwarded_port", guest: 443, host: 8443
+    tergolweb1.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
+    tergolweb1.vm.network "private_network", ip: "172.16.10.5"
+  end
+
+  config.vm.define "tergolweb2" do |tergolweb2|
+    tergolweb2.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |tergolweb2|
+      tergolweb2.name = "ter-web-02"
+    end
+    tergolweb2.vm.network "forwarded_port", guest: 80, host: 8091
+    tergolweb2.vm.network "forwarded_port", guest: 443, host: 8444
+    tergolweb2.vm.network "forwarded_port", guest: 22, host: 2200, id: "ssh"
+    tergolweb2.vm.network "private_network", ip: "172.16.10.6"
+  end
+
+  config.vm.define "tergoldat1" do |tergoldat1|
+    tergoldat1.vm.box = "ubuntu/trusty64" 
+    config.vm.provider "virtualbox" do |tergoldat1|
+      tergoldat1.name = "ter-dat-01"
+    end
+    tergoldat1.vm.network "forwarded_port", guest: 3306, host: 33060
+    tergoldat1.vm.network "forwarded_port", guest: 22, host: 2201, id: "ssh"
+    tergoldat1.vm.network "private_network", ip: "172.16.10.20"
+  end
+
+  config.vm.define "tergolloa1" do |tergolloa1|
+    tergolloa1.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |tergolloa1|
+      tergolloa1.name = "ter-loa-01"
+    end
+    tergolloa1.vm.network "forwarded_port", guest: 80, host: 8092
+    tergolloa1.vm.network "forwarded_port", guest: 443, host: 8445
+    tergolloa1.vm.network "forwarded_port", guest: 22, host: 2202, id: "ssh"
+    tergolloa1.vm.network "private_network", ip: "172.16.10.30"
+  end
+end

@@ -1,0 +1,28 @@
+---
+- name: Install and configure the webservers
+  hosts:
+    - tergolweb1
+    - tergolweb2
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - webserver
+
+- name: Install and configure database server
+  hosts: 
+    - tergoldat1
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - database
+
+- name: Install and configure the loadbalancer
+  hosts:
+    - tergolloa1
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - loadbalancer

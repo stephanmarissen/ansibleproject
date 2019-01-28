@@ -1,0 +1,9 @@
+[webservers]
+tergolweb1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+tergolweb2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200
+
+[databases]
+tergoldat1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
+
+[loadbalancers]
+tergolloa1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202
