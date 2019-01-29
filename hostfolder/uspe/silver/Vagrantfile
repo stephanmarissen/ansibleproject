@@ -1,0 +1,25 @@
+Vagrant.configure(2) do |config|
+
+  config.ssh.insert_key = false
+  
+  config.vm.define "uspsilweb1" do |uspsilweb1|
+    uspsilweb1.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |uspsilweb1|
+      uspsilweb1.name = "usp-web-01"
+    end
+    uspsilweb1.vm.network "forwarded_port", guest: 80, host: 9080
+    uspsilweb1.vm.network "forwarded_port", guest: 443, host: 9443
+    uspsilweb1.vm.network "forwarded_port", guest: 22, host: 2210, id: "ssh"
+    uspsilweb1.vm.network "private_network", ip: "172.16.20.5"
+  end
+
+  config.vm.define "uspsildat1" do |uspsildat1|
+    uspsildat1.vm.box = "ubuntu/trusty64"
+    config.vm.provider "virtualbox" do |uspsildat1|
+      uspsildat1.name = "usp-dat-01"
+    end
+    uspsildat1.vm.network "forwarded_port", guest: 3306, host: 34060
+    uspsildat1.vm.network "forwarded_port", guest: 22, host: 2211, id: "ssh"
+    uspsildat1.vm.network "private_network", ip: "172.16.20.20"
+  end
+end

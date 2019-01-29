@@ -1,0 +1,14 @@
+---
+- name: Install Apache
+  apt:
+    name:
+      - apache2
+      - libapache2-mod-php5
+      - php5-mysql
+      - php5-mcrypt
+    state: latest
+    update_cache: yes
+
+- name: Copy index.php to main folder
+  copy: src=index.php dest=/var/www/html/index.php
+

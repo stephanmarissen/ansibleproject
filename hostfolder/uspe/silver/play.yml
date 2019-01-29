@@ -1,0 +1,18 @@
+---
+- name: Install and configure the webserver
+  hosts:
+    - uspsilweb1
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - webserver
+
+- name: Install and configure the database server
+  hosts:
+    - uspsildat1
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - database

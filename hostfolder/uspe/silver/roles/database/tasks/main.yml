@@ -1,0 +1,19 @@
+---
+- name: Install mysql database
+  apt: name=mysql-server update_cache=yes state=latest
+  
+- name: Install the mysql-python module
+  apt: name=python-mysqldb update_cache=yes state=latest
+
+- name: Create new database named testdb
+  mysql_user: name=user password=password priv='*.*:ALL,GRANT' state=present host=172.16.20.%
+  notify: restart mysql
+
+- name: Copy my.cnf file
+  copy: src=my.cnf dest=/etc/mysql/my.cnf
+
+- name: Copy database dump file
+  copy: src=import.sql dest=/tmp
+
+- name: import sql data
+  mysql_db: name=testdb state=import target=/tmp/import.sql
